@@ -1,8 +1,24 @@
 version: '3'
 
 services:
-  api:
-    container_name: FastAPI
-    build: .
-    ports:
-      - "80:80"
+  # api:
+  #   container_name: FastAPI
+  #   build: .
+  #   ports:
+  #     - "80:80"
+  neo4j:
+        image: neo4j
+        ports:
+            - 7474:7474
+            - 7687:7687
+        volumes: 
+            - neo4j-data:/data
+            - neo4j-logs:/logs
+            - neo4j-conf:/conf
+
+# default user and pass "neo4j"
+
+volumes:
+  neo4j-data:
+  neo4j-logs:
+  neo4j-conf:
