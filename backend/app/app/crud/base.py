@@ -1,14 +1,14 @@
-from typing import Any, Dict, Generic, List, Optional, Type, TypeVar, Union
-
-from fastapi.encoders import jsonable_encoder
-from pydantic import BaseModel
-
-from app.db.base_class import Base
+from neo4j import GraphDatabase
 
 
 class CRUDBase:
-    def __init__(self, model: Type[ModelType]):
+    def __init__(self):
         pass
 
-    def get(self, db: Session, id: Any) -> Optional[ModelType]:
-        return db.query(self.model).filter(self.model.id == id).first()
+    def get(self, db: GraphDatabase, id) -> None:
+        nodes = []
+        query = "MATCH(n) return n"
+        result = db.run(query)
+        for record in result:
+            nodes.append(record)
+        return nodes
