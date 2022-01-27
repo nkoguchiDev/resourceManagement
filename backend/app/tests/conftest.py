@@ -5,4 +5,4 @@ import pytest
 
 @pytest.fixture(scope="session")
 def db() -> None:
-    yield SessionLocal()
+    yield SessionLocal

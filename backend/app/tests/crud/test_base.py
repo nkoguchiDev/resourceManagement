@@ -1,6 +1,8 @@
-from app import crud
 
 
 def test_get(db) -> None:
-    a = crud.base.get(db)
-    assert a == 0
+    q1 = "MATCH (n:Person {name:'Emil'}) RETURN n"
+    nodes = db.run(q1)
+    results = [record for record in nodes.data()]
+
+    assert results == 0
