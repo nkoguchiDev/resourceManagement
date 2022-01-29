@@ -3,7 +3,8 @@
 
 # For a new basic set of CRUD operations you could just do
 
-# from .base import CRUDBase
+from .base import base_test  # noqa
+
 # from app.models.item import Item
 # from app.schemas.item import ItemCreate, ItemUpdate
 
