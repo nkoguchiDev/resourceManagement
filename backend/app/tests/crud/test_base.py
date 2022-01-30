@@ -1,10 +1,31 @@
 from app import crud
 
 
+def test_create(db) -> None:
+
+    label = "test"
+    key = "name"
+    value = "naoki"
+
+    properties = {
+        key: value
+    }
+    results = crud.base_test.create(db=db,
+                                    label=label,
+                                    properties=properties)
+
+    assert results == 0
+
+
 def test_get(db) -> None:
 
-    query = "MATCH (p:Person) WHERE p.name = 'Emil' RETURN p;"
+    label = "test"
+    key = "name"
+    value = "naoki"
+
     results = crud.base_test.get(db=db,
-                                 query=query)
+                                 label=label,
+                                 key=key,
+                                 value=value)
 
     assert results == 0
