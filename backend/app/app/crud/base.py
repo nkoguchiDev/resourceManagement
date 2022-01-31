@@ -5,21 +5,44 @@ class CRUDBase:
     def __init__(self):
         pass
 
-    def get(self, db: GraphDatabase, label: str, key: str, value: str) -> None:
-        query = f"MATCH (node:{label}) WHERE node.{key}='{value}' RETURN node"
+    def get(self, db: GraphDatabase, label: str, name: str) -> list:
+        query = f"MATCH (node:{label}) WHERE node.name='{name}' RETURN node"
         nodes = []
         result = db.run(query)
         for record in result:
             nodes.append(record)
         return nodes
 
-    def create(self, db: GraphDatabase, label: str, properties: dict) -> None:
-        query = f"CREATE (node:{label} {properties})"
+    def create(self, db: GraphDatabase, label: str, name: str) -> list:
+        query = f"CREATE (node:{label} {{name: '{name}'}}) RETURN node"
         nodes = []
         result = db.run(query)
         for record in result:
             nodes.append(record)
         return nodes
+
+    def delete(self, db: GraphDatabase, label: str, name: str) -> list:
+        query = f"MATCH(node: {label} {{name: '{name}'}}) DELETE node RETURN node"
+        nodes = []
+        result = db.run(query)
+        for record in result:
+            nodes.append(record)
+        return nodes
+
+    # def get(self, db: GraphDatabase, label: str, name: str) -> list:
+    #     query = f"MATCH (node:{label}) WHERE node.name='{name}' RETURN node"
+    #     result = db.run(query)
+    #     return [record.data() for record in result]
+
+    # def create(self, db: GraphDatabase, label: str, name: str) -> list:
+    #     query = f"CREATE (node:{label} {{name: '{name}'}}) RETURN node"
+    #     result = db.run(query)
+    #     return [record.data() for record in result]
+
+    # def delete(self, db: GraphDatabase, label: str, name: str) -> list:
+    #     query = f"MATCH(node: {label} {{name: '{name}'}}) DELETE node RETURN node"
+    #     result = db.run(query)
+    #     return [record.data() for record in result]
 
 
 base_test = CRUDBase()
