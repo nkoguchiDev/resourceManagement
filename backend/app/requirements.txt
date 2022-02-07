@@ -1,5 +1,6 @@
 fastapi
 uvicorn
 neo4j
-neo4j-driver
+passlib[bcrypt]
+python-jose[cryptography]
 pytest

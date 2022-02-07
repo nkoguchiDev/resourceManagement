@@ -7,7 +7,8 @@ name = "pypi"
 fastapi = "*"
 uvicorn = "*"
 neo4j = "*"
-neo4j-driver = "*"
+passlib = {extras = ["bcrypt"], version = "*"}
+python-jose = {extras = ["cryptography"], version = "*"}
 pytest = "*"
 
 [dev-packages]
