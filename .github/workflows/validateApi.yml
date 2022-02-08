@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Setup docker container
         run: |
-          sh containerSetup.sh
+          docker-compose up -d
         working-directory: backend/app
       - name: Setup Python
         uses: actions/setup-python@master
