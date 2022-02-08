@@ -15,6 +15,9 @@ services:
             - neo4j-data:/data
             - neo4j-logs:/logs
             - neo4j-conf:/conf
+        environment:
+            # neo4j password setting (NEO4J_AUTH=neo4j/<password>)
+            - NEO4J_AUTH=neo4j/neo4jj
 
 # default user and pass "neo4j"
 
