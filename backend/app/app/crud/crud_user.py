@@ -19,9 +19,6 @@ class CRUDUser(CRUDBase):
                         {{
                             uuid: '{uuid}',
                             email: '{email}'
-                            hashed_password: '{hashed_password}'
-                            is_active: '{is_active}'
-
                         }}
                         ) RETURN node
                 """
