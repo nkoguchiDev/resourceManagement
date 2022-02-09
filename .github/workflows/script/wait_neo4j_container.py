@@ -8,12 +8,15 @@ def main():
     port = 7474
 
     while True:
-        response = requests.get(f"{plotcol}://{host_name}:{port}")
-
-        if response.status_code == 200:
-            break
-        else:
+        try:
+            response = requests.get(f"{plotcol}://{host_name}:{port}")
+        except requests.exceptions.ConnectionError:
             time.sleep(1)
+        else:
+            if response.status_code == 200:
+                break
+            else:
+                time.sleep(1)
 
 
 if __name__ == "__main__":
