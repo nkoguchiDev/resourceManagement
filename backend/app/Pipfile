@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 fastapi = "*"
-pydantic = "*"
+pydantic = {extras = ["email"], version = "*"}
 uvicorn = "*"
 neo4j = "*"
 passlib = {extras = ["bcrypt"], version = "*"}
