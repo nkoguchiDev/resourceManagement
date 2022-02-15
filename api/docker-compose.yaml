@@ -1,8 +1,0 @@
-version: '3'
-
-services:
-  api:
-    container_name: FastAPI
-    build: .
-    ports:
-      - "80:80"

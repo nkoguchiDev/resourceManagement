@@ -1,0 +1,9 @@
+fastapi
+pydantic
+pydantic[email]
+uvicorn
+neo4j
+passlib[bcrypt]
+python-jose[cryptography]
+pytest
+pytest-cov
