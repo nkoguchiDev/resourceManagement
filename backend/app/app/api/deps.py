@@ -8,13 +8,17 @@ from neo4j import GraphDatabase
 
 from app import crud, models, schemas
 from app.core import security
-from app.core.config import settings
+# from app.core.config import settings
 from app.db.session import SessionLocal
 
 reusable_oauth2 = OAuth2PasswordBearer(
     # tokenUrl=f"{settings.API_V1_STR}/login/access-token"
     tokenUrl="/v1/api/login/access-token"
 )
+
+
+class settings:
+    SECRET_KEY = "cce45e4c8450c2781ff1f2e1436cd61fb49c730f5b74b7b4824ca09d77eb89c3"
 
 
 def get_db() -> Generator:
