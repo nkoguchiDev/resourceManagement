@@ -1,5 +1,9 @@
-from app.crud.base import CRUDBase
 from neo4j import GraphDatabase
+
+from typing import Any, Dict, Optional, Union
+from app.core.security import get_password_hash, verify_password
+from app.models.user import User
+from app.crud.base import CRUDBase
 
 
 class CRUDUser(CRUDBase):
@@ -34,6 +38,25 @@ class CRUDUser(CRUDBase):
         query = f"MATCH(node: {label} {{uuid: '{uuid}'}}) DELETE node RETURN node"
         result = db.run(query)
         return [record.data() for record in result]
+
+    def authenticate(
+            self,
+            db: GraphDatabase,
+            *,
+            email: str,
+            password: str) -> Optional[User]:
+        user = self.get_by_email(db, label="test", email=email)
+        if not user:
+            return None
+        if not verify_password(password, user.hashed_password):
+            return None
+        return user
+
+    def is_active(self, user: User) -> bool:
+        return user.is_active
+
+    def is_superuser(self, user: User) -> bool:
+        return user.is_superuser
 
 
 user = CRUDUser()

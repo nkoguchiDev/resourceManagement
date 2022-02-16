@@ -40,3 +40,24 @@ def test_delete_by_uuid(db) -> None:
                                        uuid=uuid)
 
     assert results[0]["node"] == {}
+
+
+def test_authenticate(db) -> None:
+
+    label = "test"
+    uuid = "uuid0001"
+    email = "naoki@dummy.com"
+
+    crud.user.get_by_uuid(db=db,
+                          label=label,
+                          uuid=uuid)
+
+    email = "email@email.email"
+    password = "password"
+
+    results = crud.user.authenticate(
+        db,
+        email=email,
+        password=password)
+
+    assert results is None
