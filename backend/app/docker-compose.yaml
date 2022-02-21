@@ -1,23 +1,30 @@
 version: '3'
 
 services:
-  # api:
-  #   container_name: FastAPI
-  #   build: .
-  #   ports:
-  #     - "80:80"
+  api:
+    container_name: FastAPI
+    build: .
+    ports:
+      - "80:80"
+    environment:
+        - SECRET_KEY=cce45e4c8450c2781ff1f2e1436cd61fb49c730f5b74b7b4824ca09d77eb89c3
+        - GRAPH_DB_HOST=neo4j
+        - GRAPH_DB_PORT=7687
+        - GRAPH_DB_USER=neo4j
+        - GRAPH_DB_PASSWORD=neo4jj
   neo4j:
-        image: neo4j
-        ports:
-            - 7474:7474
-            - 7687:7687
-        volumes: 
-            - neo4j-data:/data
-            - neo4j-logs:/logs
-            - neo4j-conf:/conf
-        environment:
-            # neo4j password setting (NEO4J_AUTH=neo4j/<password>)
-            - NEO4J_AUTH=neo4j/neo4jj
+    container_name: neo4j
+    image: neo4j
+    ports:
+        - 7474:7474
+        - 7687:7687
+    volumes: 
+        - neo4j-data:/data
+        - neo4j-logs:/logs
+        - neo4j-conf:/conf
+    environment:
+        # neo4j password setting (NEO4J_AUTH=neo4j/<password>)
+        - NEO4J_AUTH=neo4j/neo4jj
 
 # default user and pass "neo4j"
 

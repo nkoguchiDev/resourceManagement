@@ -1,42 +1,55 @@
 from app import crud
+from app.core.security import verify_password
 
 
 def test_create(db) -> None:
 
-    label = "test"
-    uuid = "uuid0001"
+    email = "naoki@dummy.com"
+    password = "password"
+
+    user = crud.user.create(db=db,
+                            email=email,
+                            password=password)
+
+    assert verify_password(password, user.hashed_password)
+    assert user.email == email
+
+
+def test_get_by_email(db) -> None:
+
     email = "naoki@dummy.com"
 
-    results = crud.user.create(db=db,
-                               label=label,
-                               uuid=uuid,
-                               email=email)
+    user = crud.user.get_by_email(db=db,
+                                  email=email)
 
-    assert results[0]["node"]["uuid"] == uuid
-    assert results[0]["node"]["email"] == email
+    assert user.email == email
 
 
-def test_get_by_uuid(db) -> None:
+def test_delete_by_email(db) -> None:
 
-    label = "test"
-    uuid = "uuid0001"
     email = "naoki@dummy.com"
 
-    results = crud.user.get_by_uuid(db=db,
-                                    label=label,
-                                    uuid=uuid)
+    user = crud.user.delete_by_email(db=db,
+                                     email=email)
 
-    assert results[0]["node"]["uuid"] == uuid
-    assert results[0]["node"]["email"] == email
+    assert user is None
 
 
-def test_delete_by_uuid(db) -> None:
+def test_authenticate(db) -> None:
 
-    label = "test"
-    uuid = "uuid0001"
+    email = "naoki@dummy.com"
+    password = "password"
 
-    results = crud.user.delete_by_uuid(db=db,
-                                       label=label,
-                                       uuid=uuid)
+    crud.user.create(db=db,
+                     email=email,
+                     password=password)
 
-    assert results[0]["node"] == {}
+    results = crud.user.authenticate(
+        db,
+        email=email,
+        password=password)
+
+    crud.user.delete_by_email(db=db,
+                              email=email)
+
+    assert results.email == email

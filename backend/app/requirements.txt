@@ -1,9 +1,11 @@
 fastapi
 pydantic
 pydantic[email]
+pydantic[dotenv]
 uvicorn
 neo4j
 passlib[bcrypt]
 python-jose[cryptography]
+python-multipart
 pytest
 pytest-cov

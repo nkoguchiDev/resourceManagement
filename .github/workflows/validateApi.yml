@@ -36,8 +36,8 @@ jobs:
       - name: Generate Report
         run: |
           pytest -v --cov=. --cov-report xml:xunit-result-0.xml
-          sed -i -e 's/filename=\"/filename=\"backend\/app\/tests\//g' xunit-result-0.xml
-        working-directory: backend/app/tests
+          sed -i -e 's/filename=\"/filename=\"backend\/app\//g' xunit-result-0.xml
+        working-directory: backend/app
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
