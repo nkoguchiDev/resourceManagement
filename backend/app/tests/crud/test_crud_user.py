@@ -4,51 +4,43 @@ from app.core.security import verify_password
 
 def test_create(db) -> None:
 
-    label = "test"
     email = "naoki@dummy.com"
     password = "password"
 
-    results = crud.user.create(db=db,
-                               label=label,
-                               email=email,
-                               password=password)
+    user = crud.user.create(db=db,
+                            email=email,
+                            password=password)
 
-    assert verify_password(password, results[0]["node"]["hashed_password"])
-    assert results[0]["node"]["email"] == email
+    assert verify_password(password, user.hashed_password)
+    assert user.email == email
 
 
 def test_get_by_email(db) -> None:
 
-    label = "test"
     email = "naoki@dummy.com"
 
-    results = crud.user.get_by_email(db=db,
-                                     label=label,
-                                     email=email)
+    user = crud.user.get_by_email(db=db,
+                                  email=email)
 
-    assert results[0]["node"]["email"] == email
+    assert user.email == email
 
 
 def test_delete_by_email(db) -> None:
 
-    label = "test"
     email = "naoki@dummy.com"
 
-    results = crud.user.delete_by_email(db=db,
-                                        label=label,
-                                        email=email)
+    user = crud.user.delete_by_email(db=db,
+                                     email=email)
 
-    assert results[0]["node"] == {}
+    assert user is None
 
 
 def test_authenticate(db) -> None:
 
-    label = "test"
     email = "naoki@dummy.com"
     password = "password"
 
     crud.user.create(db=db,
-                     label=label,
                      email=email,
                      password=password)
 
@@ -58,7 +50,6 @@ def test_authenticate(db) -> None:
         password=password)
 
     crud.user.delete_by_email(db=db,
-                              label=label,
                               email=email)
 
     assert results.email == email
