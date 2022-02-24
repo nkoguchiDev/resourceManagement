@@ -19,6 +19,8 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "resourceManager"
     API_V1_STR: str = "/api/v1"
 
+    USERS_OPEN_REGISTRATION: bool = False
+
     class Config:
         env_file = 'local.env'
 

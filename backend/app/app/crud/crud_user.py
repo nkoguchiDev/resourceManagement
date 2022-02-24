@@ -47,13 +47,23 @@ class CRUDUser(CRUDBase):
         else:
             return User(**user)
 
-    def create(self, db: GraphDatabase, email: str, password: str) -> list:
+    def create(
+            self,
+            db: GraphDatabase,
+            email: str,
+            password: str,
+            full_name: str = None,
+            is_active: bool = True,
+            is_superuser: bool = False) -> list:
         query = f"""
                 CREATE ({settings.USER_NODE_NAME}:{settings.USER_NODE_LABEL}
                         {{
                             id: '{uuid.uuid4()}',
                             email: '{email}',
-                            hashed_password: '{get_password_hash(password)}'
+                            hashed_password: '{get_password_hash(password)}',
+                            full_name: '{full_name}',
+                            is_active: {is_active},
+                            is_superuser: {is_superuser}
                         }}
                         )
                         RETURN {settings.USER_NODE_NAME}
