@@ -4,6 +4,7 @@ pydantic[email]
 pydantic[dotenv]
 uvicorn
 neo4j
+neomodel
 passlib[bcrypt]
 python-jose[cryptography]
 python-multipart

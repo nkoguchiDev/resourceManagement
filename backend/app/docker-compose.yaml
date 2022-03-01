@@ -22,9 +22,16 @@ services:
         - neo4j-data:/data
         - neo4j-logs:/logs
         - neo4j-conf:/conf
+        - ./tmp:/var/lib/neo4j/certificates/bolt
     environment:
         # neo4j password setting (NEO4J_AUTH=neo4j/<password>)
         - NEO4J_AUTH=neo4j/neo4jj
+        - NEO4J_dbms_ssl_policy_bolt_enabled=true
+        # - NEO4J_dbms_ssl_policy_bolt_base__directory=certificates/bolt
+        - NEO4J_dbms_ssl_policy_bolt_private__key=private.key
+        - NEO4J_dbms_ssl_policy_bolt_public__certificate=public.crt
+        - NEO4J_dbms_connector_bolt_tls__level=REQUIRED
+        - NEO4J_dbms_ssl_policy_bolt_client__auth=NONE
 
 # default user and pass "neo4j"
 
