@@ -38,3 +38,8 @@ jobs:
           pytest -v --cov=. --cov-report xml:xunit-result-0.xml
           sed -i -e 's/filename=\"/filename=\"backend\/app\//g' xunit-result-0.xml
         working-directory: backend/app
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
