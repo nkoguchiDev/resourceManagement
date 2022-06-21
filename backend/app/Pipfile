@@ -4,16 +4,18 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-fastapi = "*"
-pydantic = {extras = ["email","dotenv"], version = "*"}
-uvicorn = "*"
 neo4j = "*"
+pydantic = {extras = ["dotenv"], version = "*"}
+pytest = "*"
+redis = "*"
+fastapi = "*"
+uvicorn = "*"
 passlib = {extras = ["bcrypt"], version = "*"}
 python-jose = {extras = ["cryptography"], version = "*"}
-pytest = "*"
+python-multipart = "*"
 pytest-cov = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.9"
+python_version = "3.10"

@@ -1,8 +1,6 @@
 import base64
 import json
 
-from email import header
-
 from app.core.security import (create_access_token,
                                verify_password,
                                get_password_hash)

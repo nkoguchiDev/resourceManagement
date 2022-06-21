@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "6e2191d9-9661-4021-a8a5-050abea3713f",
+		"name": "backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17380810"
+	},
+	"item": [
+		{
+			"name": "get status",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:80",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "80"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"const schema = {",
+							"  \"type\": \"object\",",
+							"  \"required\": [\"email\", \"password\"],  // 必須プロパティとして定義",
+							"  \"additionalProperties\": false,  // 未定義プロパティは許可しない",
+							"  \"properties\": {",
+							"    \"email\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"password\": {",
+							"      \"type\": \"string\"",
+							"    }",
+							"  }",
+							"};",
+							"",
+							"",
+							"pm.test('response validate', function () {",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"mail@dummy.dummy\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:80/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
