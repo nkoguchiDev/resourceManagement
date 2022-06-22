@@ -23,6 +23,19 @@ class CRUDProject(Base):
         self._NODE_NAME = "project"
         self._NODE_LABEL = "Project"
 
+    def get_by_id(self,
+                  db: GraphDatabase,
+                  id: str):
+        query = f"""
+            MATCH ({self._NODE_NAME}:{self._NODE_LABEL} {{id: '{id}'}})
+            RETURN {self._NODE_NAME}
+        """
+        result = db.run(query)
+        project = [record.get(self._NODE_NAME)
+                   for record in result.data()]
+
+        return check_rowdata(models.Project, project)
+
     def create(
             self,
             db: GraphDatabase,
@@ -39,10 +52,10 @@ class CRUDProject(Base):
                 RETURN {self._NODE_NAME}
                 """
         result = db.run(query)
-        user = [record.get(self._NODE_NAME)
-                for record in result.data()]
+        project = [record.get(self._NODE_NAME)
+                   for record in result.data()]
 
-        return check_rowdata(models.User, user)
+        return check_rowdata(models.Project, project)
 
     def delete_by_id(
             self,
